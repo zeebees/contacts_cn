@@ -15,6 +15,9 @@ class Contacts
 			return @contacts if @contacts
       if connected?
       	data, resp, cookies, forward = get(MAIL_URL,@cookies)
+      	if resp.code_type == Net::HTTPTemporaryRedirect
+      	  data, resp, cookies, forward = get(MAIL_URL.sub(/81/, resp.message.split(" ")[-1]),@cookies)
+    	  end
       	if resp.code_type != Net::HTTPOK
           raise ConnectionError, self.class.const_get(:PROTOCOL_ERROR)
         end

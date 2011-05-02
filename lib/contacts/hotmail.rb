@@ -105,7 +105,7 @@ class Contacts
         build_contacts.each do |contact|
           unless contact[1].nil?
             # Only return contacts with email addresses
-            contact[1] = CGI::unescape(contact[1])
+            contact[1] = CGI::unescape(CGI::unescape(contact[1]))
             @contacts << contact
           end
         end
